@@ -7,9 +7,7 @@ import { TaskContext } from '../contexts/TaskContext';
 
 
 const NavbarComponent = () => {
-
     const {tasks} = useContext(TaskContext)
-    
     return (
         <AppBar position="static">
             <Toolbar variant="dense" 
@@ -17,7 +15,7 @@ const NavbarComponent = () => {
                 <Typography 
                     variant="h6" 
                     color="inherit">
-                    React Todo List ({tasks.length})
+                    React Todo List ({tasks?.length})
                 </Typography>
             </Toolbar>
         </AppBar>

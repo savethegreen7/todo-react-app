@@ -5,7 +5,6 @@ import TextField from '@material-ui/core/TextField';
 import { TaskContext } from '../../contexts/TaskContext';
 import { Action } from '../../reducers/TaskReducer';
 import uuid from 'uuid/v1';
-
 const AddTaskComponent = () => {
 
     const { dispatch } = useContext(TaskContext);
