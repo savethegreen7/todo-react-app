@@ -16,7 +16,7 @@ const TaskContextProvider = (props) => {
 
     const count = sortedTasks.length;
     useEffect(()=>{  
-        console.log('use1')
+        console.log('getTasksRequest>')
         getTasksRequest().then(res=>{
             setTasks(res.sort((t, f) =>  (f.isChecked === t.isChecked)? 0 : f.isChecked? -1 : 1));
             dispatch({

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField';
@@ -7,21 +7,25 @@ import { Action } from '../../reducers/TaskReducer';
 import uuid from 'uuid/v1';
 const AddTaskComponent = () => {
 
-    const { dispatch } = useContext(TaskContext);
+    const { dispatch, addTaskRequest } = useContext(TaskContext);
     const [description, setDescription] = useState('');
 
-    const onAddTask = (e) => {
+    const onAddTask = async(e) => {
 
         e.preventDefault();
+        const task =  {
+            id:uuid(),
+            isChecked:false,
+            created:new Date(),
+            description:description
+        }
+        
+        const fixedTask = await addTaskRequest(task);       
+        console.log('fixedTask' , fixedTask)
 
         dispatch({
             type: Action.ADD_TASK,
-            task: {
-                id:uuid(),
-                isChecked:false,
-                created:new Date(),
-                description:description
-            }
+            task: fixedTask
         });
         setDescription('')
     }

@@ -27,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
 const TaskListComponent = () => {
 
     const {
-        sortedTasks,
         tasks,
         dispatch,
+        removeTaskRequest
     } = useContext(TaskContext);
 
 
@@ -43,11 +43,21 @@ const TaskListComponent = () => {
                 isChecked
             }
         })
+    };
+
+    const onDelete = async(task)=>{
+        console.log('onDelete' ,  task );
+
+        const d = await removeTaskRequest(task.docId);
+        console.log('d' , d )
+        dispatch({
+            type: Action.REMOVE_TASK,
+            id: task.id
+        })
     }
     return (
         <List className={classes.root}>
             {tasks.map((task) => {
-                console.log('task--' , task)
                 return (
                     <ListItem key={task.id}
                         role={undefined}
@@ -68,11 +78,9 @@ const TaskListComponent = () => {
                             <IconButton
                                 edge="end"
                                 aria-label="comments"
-                                onClick={() => {
-                                    dispatch({
-                                        type: Action.REMOVE_TASK,
-                                        id: task.id
-                                    })
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                   onDelete(task)
                                 }}>
                                 <DeleteOutlineIcon />
                             </IconButton>
