@@ -35,12 +35,17 @@ const TaskListComponent = () => {
 
     const classes = useStyles();
 
-    const onChecked = (id, isChecked) => {
+    const onChecked = (task) => {
+        
+        const ref = task.ref;
+        const isChecked = !task.isChecked;
+    
+        console.log('id, isChecked' , ref, isChecked);
+        // return;
         dispatch({
             type: Action.CHECK_TASK,
             task: {
-                id,
-                isChecked
+                ref, isChecked
             }
         })
     };
@@ -48,7 +53,7 @@ const TaskListComponent = () => {
     const onDelete = async(task)=>{
         console.log('onDelete' ,  task );
 
-        const d = await removeTaskRequest(task.docId);
+        const d = await removeTaskRequest(task);
         console.log('d' , d )
         dispatch({
             type: Action.REMOVE_TASK,
@@ -62,17 +67,15 @@ const TaskListComponent = () => {
                     <ListItem key={task.id}
                         role={undefined}
                         dense
-                        button
-                        onClick={() => {                            
-                            onChecked(task.id, !task.isChecked)
-                        }
-                        }>
-                        <IconButton color="primary">
+                        button={false} >
+                        <IconButton color="primary" onClick={() => {
+                            onChecked(task)
+                        }}>
                             {
                                 !task.isChecked ? (<CropFreeIcon />) : (<LibraryAddCheckIcon />)
                             }
                         </IconButton>
-                        <ListItemText primary={task.description}
+                        <ListItemText primary={task.title}
                             className={task.isChecked ? classes.marked : ''} />
                         <ListItemSecondaryAction>
                             <IconButton
@@ -80,7 +83,7 @@ const TaskListComponent = () => {
                                 aria-label="comments"
                                 onClick={(e) => {
                                     e.preventDefault();
-                                   onDelete(task)
+                                    onDelete(task)
                                 }}>
                                 <DeleteOutlineIcon />
                             </IconButton>

@@ -8,7 +8,7 @@ import uuid from 'uuid/v1';
 const AddTaskComponent = () => {
 
     const { dispatch, addTaskRequest } = useContext(TaskContext);
-    const [description, setDescription] = useState('');
+    const [title, setTitle] = useState('');
 
     const onAddTask = async(e) => {
 
@@ -17,17 +17,17 @@ const AddTaskComponent = () => {
             id:uuid(),
             isChecked:false,
             created:new Date(),
-            description:description
+            title:title
         }
         
-        const fixedTask = await addTaskRequest(task);       
+        const fixedTask = await addTaskRequest(task);
         console.log('fixedTask' , fixedTask)
 
         dispatch({
             type: Action.ADD_TASK,
             task: fixedTask
         });
-        setDescription('')
+        setTitle('')
     }
     return (
         <form onSubmit={onAddTask}>
@@ -41,10 +41,10 @@ const AddTaskComponent = () => {
                     label="Add Task"
                     variant="outlined"
                     size="small"
-                    value={description}
+                    value={title}
                     onChange={
                         (e) => {
-                            setDescription(e.target.value)
+                            setTitle(e.target.value)
                         }
                     }
                 />
