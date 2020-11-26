@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField';
 import { TaskContext } from '../../contexts/TaskContext';
-import { Action } from '../../reducers/TaskReducer';
+import { Action, initState } from '../../reducers/TaskReducer';
 import uuid from 'uuid/v1';
 const AddTaskComponent = () => {
 
@@ -13,13 +13,10 @@ const AddTaskComponent = () => {
     const onAddTask = async(e) => {
 
         e.preventDefault();
-        const task =  {
-            id:uuid(),
-            isChecked:false,
-            created:new Date(),
-            title:title
-        }
-        
+        let _title = !title ? '새할일' : title;
+        const task =  {...initState(), ...{title:_title}};
+
+
         const fixedTask = await addTaskRequest(task);
         console.log('fixedTask' , fixedTask)
 
@@ -44,7 +41,8 @@ const AddTaskComponent = () => {
                     value={title}
                     onChange={
                         (e) => {
-                            setTitle(e.target.value)
+                            let value=e.target.value;
+                            setTitle(value);
                         }
                     }
                 />

@@ -44,10 +44,12 @@ export const getTasksRequest = async () => {
 }
 
 export const addTaskRequest = async (task) => {
-	console.log(task)
+	console.log('addTaskRequest' , task)
 	const res = await db.collection(collection).add(task);
-	const ref = await db.doc(res.path).get();
-	return Object.assign(ref.data(), {docId: ref.id})
+	const doc = await db.doc(res.path).get();
+	// console.log('ref' , doc)
+	const {id, path} = doc.ref;
+	return Object.assign(doc.data(), {ref:{id, path}})
 }
 
 export const checkTaskRequest = (id, isChecked) => {
@@ -58,10 +60,11 @@ export const checkTaskRequest = (id, isChecked) => {
 		})
 }
 
-export const removeTaskRequest = async (id) => {
+export const removeTaskRequest = async (task) => {
+	const id = task.ref.id;
 	db.collection(collection).get().then(querySnapshot => {
 		querySnapshot.forEach(doc => {
-			console.log('removeTaskRequest doc', `${doc.ref.path}`, id === doc.id)
+			console.log('removeTaskRequest pre check', `${doc.ref.path}`, id === doc.id)
 		})
 	})
 	
