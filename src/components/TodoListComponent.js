@@ -22,10 +22,10 @@ const TodoListComponent = () => {
         <div className={classes.root}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <AddTaskComponent></AddTaskComponent>
+                    <AddTaskComponent> </AddTaskComponent>
                 </Grid>
                 <Grid item xs={12}>
-                    <TaskListComponent></TaskListComponent>
+                    <TaskListComponent> </TaskListComponent>
                 </Grid>
             </Grid>
         </div>

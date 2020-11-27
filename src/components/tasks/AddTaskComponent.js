@@ -26,6 +26,8 @@ const AddTaskComponent = () => {
         });
         setTitle('')
     }
+
+
     return (
         <form onSubmit={onAddTask}>
             <Grid

@@ -17,7 +17,7 @@ export const initState = ()=>{
         blob: '', // 본문 내용 데이터 맵
         title: '새할일',
         created: date,
-        expired: parseInt(new Date().setDate(date.getDate()+1) /1000+''), // 남은 시간 ms 기본 하루
+        expired: parseInt(new Date().setDate(date.getDate()+1)+''), // 남은 시간 ms 기본 하루
         ref:{} ,// firestore 레퍼 id {id, path}
         tasks: [] // 하위 태스크 배열
     }
